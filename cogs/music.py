@@ -9,8 +9,6 @@ import asyncio
 from discord.ext.commands import Bot
 from discord.ext import commands
 
-queue = []
-
 def searchurl(url):
     if not validators.url(url) == True:
         query_string = urllib.parse.urlencode({
@@ -29,12 +27,10 @@ def searchurl(url):
 class Musiccommand(commands.Cog):
     def __init__(self, bot, *args, **kwargs):
         self.bot = bot
-        self.queue = asyncio.Queue()
 
 
     @commands.command()
     async def play(self, ctx, *url):
-        global queue
         print(url)
         url = str(url)
         url = url.replace(" ","+")
@@ -48,8 +44,7 @@ class Musiccommand(commands.Cog):
         except PermissionError:
             if not validators.url(url) == True:
                 url = searchurl(url)
-            queue.append(url)
-            #await ctx.send("Wait for the current playing music to end or use the 'stop' command")
+            await ctx.send("Wait for the current playing music to end or use the 'stop' command")
             return
         #Check if user is in vc
         voice_state = ctx.author.voice
@@ -105,18 +100,8 @@ class Musiccommand(commands.Cog):
 
     @commands.command()
     async def stop(self, ctx):
-        global queue
         voice = discord.utils.get(ctx.bot.voice_clients, guild=ctx.guild)
         voice.stop()
-        queue = []
-        #id = ctx.message.guild.id
-        #if os.path.exists(f"./queue/queue{id}.csv"):
-            #os.remove(f"./queue/queue{id}.csv")
-
-    @commands.command(name="queue")
-    async def queue_(self,ctx):
-        global queue
-        await ctx.send(f"the songs in queue are: `{queue}`")
 
     @commands.command()
     async def replay(self, ctx):
