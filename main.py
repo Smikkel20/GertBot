@@ -8,6 +8,7 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 from discord import Color
 from dotenv import load_dotenv
+from keep_alive import keep_alive
 
 bot = commands.Bot(command_prefix = "!")
 bot.remove_command("help")
@@ -65,5 +66,5 @@ async def reload(ctx):
 
 
 
-
+keep_alive()
 bot.run(TOKEN)
