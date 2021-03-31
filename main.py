@@ -1,12 +1,8 @@
 import os
 import discord
-import random
-import praw
 import sys
-import validators
 from discord.ext.commands import Bot
 from discord.ext import commands
-from discord import Color
 from dotenv import load_dotenv
 from keep_alive import keep_alive
 
@@ -27,7 +23,6 @@ if __name__ == "__main__":
 load_dotenv()
 #get tokens from .env file
 TOKEN = os.getenv("TEST_TOKEN")
-RedditPassword = os.getenv("REDDIT_PASSWORD")
 
 @bot.event
 async def on_ready():
