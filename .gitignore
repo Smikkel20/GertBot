@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# changes in time.json
+time.json
+
 # C extensions
 *.so
 
