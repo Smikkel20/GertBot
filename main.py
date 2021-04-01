@@ -115,6 +115,9 @@ async def reload(ctx):
 #creates a multitread for the 
 b = threading.Thread(name='LastTime', target=LastTime)
 
+time_file = open("time.json", "w")
+time_file.close()
+
 #get the last known uptime time from time.json
 try:
     time_file = open("time.json", "r")
