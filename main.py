@@ -33,14 +33,21 @@ def LastTime():
         #get current time
         LastKnownTime = time.time()
         #store the current time in time.json
-        time_file = open("time.json", "r")
-        json_object = json.load(time_file)
-        time_file.close()
-        json_object["time"] = LastKnownTime
-        time_file = open("time.json", "w")
-        json.dump(json_object, time_file)
-        time_file.close()
-
+        try:
+            time_file = open("time.json", "r")
+            json_object = json.load(time_file)
+            time_file.close()
+            json_object["time"] = LastKnownTime
+            time_file = open("time.json", "w")
+            json.dump(json_object, time_file)
+            time_file.close()
+        #if the file is empty create the object
+        except json.JSONDecodeError:
+            time_file = open("time.json", "w")
+            time_file.write('{"time" : ')
+            time_file.write(str(LastKnownTime))
+            time_file.write("}")
+            
 
 @bot.event
 async def on_ready():
@@ -109,11 +116,15 @@ async def reload(ctx):
 b = threading.Thread(name='LastTime', target=LastTime)
 
 #get the last known uptime time from time.json
-time_file = open("time.json", "r")
-json_object = json.load(time_file)
-time_file.close()
-print(json_object["time"])
-last_down_time = json_object["time"]
+try:
+    time_file = open("time.json", "r")
+    json_object = json.load(time_file)
+    time_file.close()
+    print(json_object["time"])
+    last_down_time = json_object["time"]
+except json.JSONDecodeError:
+    print("An exception occured while trying to read time.json returning current time")
+    last_down_time = time.time()
 
 #retrieve the time from when the bot starts
 start_time = time.time()
