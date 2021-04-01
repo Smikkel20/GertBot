@@ -1,11 +1,9 @@
 import discord
 import os
-import random
 import youtube_dl
 import validators
 import re
 import urllib
-import asyncio
 from discord.ext.commands import Bot
 from discord.ext import commands
 
