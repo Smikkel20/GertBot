@@ -1,3 +1,4 @@
 git+https://github.com/Rapptz/discord.py
 git+https://github.com/praw-dev/praw.git
 validators==0.18.2
+youtube_dl==2021.4.7
