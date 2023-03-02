@@ -10,36 +10,15 @@ class Helpcommand(commands.Cog):
         self.bot = bot
     
     #Creates subcommand for help
-    @commands.group(invoke_without_command=True)
+    @commands.hybrid_command(name = "help", with_app_command = True, description = "Shows list of commands")
     async def help(self, ctx):
-        em = discord.Embed(title = "Help",description = "Use `!help <command>` for information about the command",color = ctx.author.color)
-
+        em = discord.Embed(title = "Help", color = discord.Color.blue())
+        em.add_field(name = "`;bible`", value = "gebruik `;bible` voor de link naar de Real Official Bible", inline=False)             
+        em.add_field(name = "`;sw`", value = "gebruik `;sw`, `;starwars` voor starwars quotes", inline=False)
+        em.add_field(name = "`;q`", value = "gebruik `;q`, `;quotes` voor official sexy quotes", inline=False)
+        em.add_field(name = "`;bans`", value = "gebruik `;bans` om de bans te bekijken!", inline=False)
         await ctx.send(embed = em)
 
-    @help.command()
-    async def ping(self, ctx):
-        em = discord.Embed(title = "Ping",description = "Shows how much ms the message took to get to you!",color = ctx.author.color)
-
-        em.add_field(name = "**Syntax**", value = "`!ping`")
-
-        await ctx.send(embed = em)
-
-    @help.command()
-    async def gamer(self, ctx):
-        em = discord.Embed(title = "Gamer",description = "Are you an elite gamer?",color = ctx.author.color)
-
-        em.add_field(name = "**Syntax**", value = "`!gamer`")
-
-        await ctx.send(embed = em)
-
-    @help.command() 
-    async def reddit(self, ctx):
-        em = discord.Embed(title = "Reddit",description = "Shows you a random top submission from a subreddit.",color = ctx.author.color)
-
-        em.add_field(name = "**Syntax**", value = "`!reddit <subreddit>` or `!reddit <url>`")
-
-        await ctx.send(embed = em)
-
-def setup(bot):
-    bot.add_cog(Helpcommand(bot))
+async def setup(bot):
+    await bot.add_cog(Helpcommand(bot))
     print("Help has been loaded")

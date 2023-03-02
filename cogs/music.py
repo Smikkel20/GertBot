@@ -112,6 +112,6 @@ class Musiccommand(commands.Cog):
 
 
 
-def setup(bot):
-    bot.add_cog(Musiccommand(bot))
+async def setup(bot):
+    await bot.add_cog(Musiccommand(bot))
     print("Music has been loaded")
